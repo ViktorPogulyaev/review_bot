@@ -2,12 +2,14 @@ from aiogram import types
 from aiogram.dispatcher import FSMContext
 
 from loader import dp
+from utils.misc import rate_limit
 
 
 # Эхо хендлер, куда летят текстовые сообщения без указанного состояния
+@rate_limit(2, 'echo')
 @dp.message_handler(state=None)
 async def bot_echo(message: types.Message):
-    await message.answer(f"Эхо без состояния."
+    await message.answer(f"Эхо без состояния. "
                          f"Сообщение:\n"
                          f"{message.text}")
 
